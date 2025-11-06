@@ -15,12 +15,12 @@ import SHA1 from "crypto-js/sha1";
 export default function App() {
   const [images, setImages] = useState([]);
   const [uploading, setUploading] = useState(false);
-  const [selectedImageUri, setSelectedImageUri] = useState(null); // Novo estado para a URI da imagem selecionada
+  const [selectedImageUri, setSelectedImageUri] = useState(null); 
 
   const CLOUD_NAME = "ddpazv4iv";
   const UPLOAD_PRESET = "storage";
   const API_KEY = "385433234578277";
-  const API_SECRET = "SeNDU_XefgpMS1r8sL6N_E5oBew"; // 🚨 ALERTA DE SEGURANÇA: AINDA AQUI!
+  const API_SECRET = "SeNDU_XefgpMS1r8sL6N_E5oBew"; 
 
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -30,11 +30,11 @@ export default function App() {
     });
 
     if (!result.canceled) {
-      setSelectedImageUri(result.assets[0].uri); // Armazena a URI para pré-visualização
+      setSelectedImageUri(result.assets[0].uri); 
     }
   };
 
-  const uploadSelectedImage = async () => { // Nova função para fazer o upload da imagem pré-visualizada
+  const uploadSelectedImage = async () => {
     if (!selectedImageUri) {
       alert("Nenhuma imagem selecionada para upload.");
       return;
@@ -69,7 +69,7 @@ export default function App() {
           public_id: result.public_id,
         };
         setImages([...images, newImage]);
-        setSelectedImageUri(null); // Limpa a pré-visualização após o upload
+        setSelectedImageUri(null);
         alert("Imagem enviada com sucesso! ✅");
       } else {
         alert("Erro ao fazer upload");
@@ -83,7 +83,7 @@ export default function App() {
   };
 
   const deleteImage = async (publicId) => {
-    // 🚨 LEMBRETE: MOVA ESTA LÓGICA PARA UM BACKEND!
+    
     try {
       const timestamp = Math.floor(Date.now() / 1000);
       const signature = SHA1(
@@ -121,24 +121,24 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      {/* Botão para ESCOLHER a imagem */}
+
       <Button
         title="Escolher Imagem"
         onPress={pickImage}
         disabled={uploading}
-        color="#28a745" // Verde
+        color="#28a745" 
       />
 
-      {/* Pré-visualização da imagem selecionada */}
+
       {selectedImageUri && (
         <View style={styles.previewContainer}>
           <Image source={{ uri: selectedImageUri }} style={styles.previewImage} />
-          {/* Botão para ENVIAR a imagem (confirmar upload) */}
+
           <Button
             title={uploading ? "Enviando..." : "Enviar"}
             onPress={uploadSelectedImage}
             disabled={uploading}
-            color="#007bff" // Azul
+            color="#007bff" 
           />
         </View>
       )}
@@ -150,7 +150,7 @@ export default function App() {
         </View>
       )}
 
-      {/* Separador visual ou título para a lista */}
+
       {images.length > 0 && <Text style={styles.listTitle}>Imagens Enviadas:</Text>}
 
       <FlatList
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: '#f5f5f5',
-    paddingTop: 50, // Ajuste para não ficar colado na parte superior
+    paddingTop: 50, 
   },
   previewContainer: {
     marginTop: 20,
